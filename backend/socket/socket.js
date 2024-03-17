@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const io = new Server(server,
   {
     cors :{
-      origin : ['https://mern-chat-app-b5yo.onrender.com'],
+      origin : ['*'],
       methods : ['GET', 'POST', ]
     }
   });
