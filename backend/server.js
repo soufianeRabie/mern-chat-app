@@ -18,10 +18,7 @@ dotenv.config();
 app.use(express.json())
 app.use(cookieParser())
 
-app.use(cors({
-  origin: 'http://localhost:3000', // Change this to your frontend URL
-  credentials: true
-}));
+app.use(cors());
 
 // Routes
 app.use('/api/auth' , authRoutes)
