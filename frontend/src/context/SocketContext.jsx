@@ -1,6 +1,7 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {useAuthContext} from "./AuthContext.jsx";
 import {io} from "socket.io-client";
+import {backendUrl} from "../utils/backendUrl.js";
 
 export const SocketContext = createContext();
 
@@ -15,7 +16,7 @@ export const SocketContextProvider = ({children})=>
 
         if(authUser)
         {
-            const socket = io('https://mern-chat-app-b5yo.onrender.com',{
+            const socket = io(backendUrl,{
                 query :{
                     userId :authUser?._id,
                 }

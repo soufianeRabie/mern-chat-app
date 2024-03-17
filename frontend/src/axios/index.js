@@ -1,7 +1,10 @@
 import axios from "axios";
+import {backendUrl} from "../utils/backendUrl.js";
 
+
+console.log( import.meta.env.BACKEND_URL)
 export const axiosConfig = axios.create({
-  baseURL : 'https://mern-chat-app-b5yo.onrender.com',
+  baseURL :backendUrl,
   withCredentials : true,
 })
 
