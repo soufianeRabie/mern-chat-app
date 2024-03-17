@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use(cors({
-  origin: 'http://localhost:5000', // Change this to your frontend URL
+  origin: 'https://mern-chat-app-b5yo.onrender.com', // Change this to your frontend URL
   credentials: true
 }));
 
