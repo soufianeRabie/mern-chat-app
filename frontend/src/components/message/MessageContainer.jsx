@@ -1,18 +1,26 @@
 import Messages from "./Messages.jsx";
 import MessageInput from "./MessageInput.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import NoChatSelected from "./NoChatSelected.jsx";
-
+import useConversation from "../../zustand/useConversation.js";
+import conversation from "../sidebar/Conversation.jsx";
 const MessageContainer = () => {
 
-    const [isChatSelected, setNoChatSelected] = useState(false )
+ const {selectedConversation , setSelectedConversation} = useConversation();
+
+    useEffect(() => {
+
+        // clean up function
+        return () => setSelectedConversation(null);
+    }, [setSelectedConversation]);
+
     return (
         <div className={"md:min-w-[450px] flex flex-col"}>
-            {isChatSelected ?     <>
+            {selectedConversation ?     <>
                 {/* HEADER */}
                 <div className={"bg-slate-500 px-4 py-2 mb-2"}>
                     <span className={"label-text "}>To: </span>{" "}
-                    <span className={"text-gray-900 font-bold"}> Soufiane rabya </span>
+                    <span className={"text-gray-900 font-bold"}>{selectedConversation?.username} </span>
                 </div>
 
                 <Messages />

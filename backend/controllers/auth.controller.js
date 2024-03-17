@@ -10,14 +10,17 @@ try
   const isCorrectPassword = await bcrypt.compare(password , user?.password || "");
 
   if(!user || !isCorrectPassword) {
-    return res.json({error : "Invalid password our username"}).status(419);
+    return res.status(400).json({error : "Invalid password our username"})
   }
+
+  await generateTokenAndSetCookie(user?._id , res)
   return res.status(200).json({
     _id : user?._id,
     username : user?.username,
     fullName : user?.fullName ,
     profilePic : user?.profilePic
   });
+
 }catch (error)
 {
   console.log("Error in login controller" , error?.message)
@@ -30,6 +33,11 @@ export const signup = async (req, res) => {
  try
  {
    const {fullName , username  ,gender, password , confirmPassword} = req.body
+
+   if(password.length < 6)
+   {
+     return res.status(400).json({error : "Password must be at least 6 characters"})
+   }
    if(password !== confirmPassword)
    {
      return res.status(400).json({error : "Password don't match"})
@@ -41,12 +49,9 @@ export const signup = async (req, res) => {
      return res.status(400).json({error : "Username already exists"})
    }
 
-   console.log('here')
    //HASH PASSWORD HERE
    const salt = await bcrypt.genSalt(10);
-   console.log("salt")
    const hashedPassword = await bcrypt.hash(password, salt)
-   console.log('now')
 
    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`
    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`
