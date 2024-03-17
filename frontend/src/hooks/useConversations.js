@@ -13,7 +13,7 @@ export const useConversations = () => {
     {
       setIsLoading(true);
       try{
-        const res  = await axiosConfig.get('http://localhost:8080/api/users');
+        const res  = await axiosConfig.get('/api/users');
         const data = await res.data;
 
         if(data.error)

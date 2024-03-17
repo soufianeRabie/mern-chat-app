@@ -7,11 +7,16 @@ import cookieParser from "cookie-parser"
 import userRoutes from "./routes/user.routes.js";
 import {app , server} from "./socket/socket.js";
 import cors from "cors";
+import path from "path";
+
+const PORT = process.env.PORT || 5000
+
+const __dirname = path.resolve();
 
 dotenv.config();
+
 app.use(express.json())
 app.use(cookieParser())
-
 
 app.use(cors({
   origin: 'http://localhost:3000', // Change this to your frontend URL
@@ -23,12 +28,13 @@ app.use('/api/auth' , authRoutes)
 app.use('/api/messages' , messageRoutes)
 app.use('/api/users' , userRoutes)
 
+app.use(express.static(path.join(__dirname, 'frontend/dist')))
 
-
-const PORT = process.env.PORT || 5000
+app.get('*' , (req , res) => {
+  res.sendFile(path.join(__dirname, 'frontend' , 'dist' , 'index.html'));
+});
 
 server.listen(PORT , ()=>{
-  console.log(process.env.PORT)
   connectToMongoDB();
   console.log(`listening on ${PORT}`)
 })
