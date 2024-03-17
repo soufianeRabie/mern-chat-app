@@ -15,7 +15,7 @@ export const SocketContextProvider = ({children})=>
 
         if(authUser)
         {
-            const socket = io('http://localhost:5000',{
+            const socket = io('https://mern-chat-app-b5yo.onrender.com',{
                 query :{
                     userId :authUser?._id,
                 }
