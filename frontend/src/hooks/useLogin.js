@@ -20,20 +20,16 @@ export const useLogin = ()=>
     {
       const res = await axiosConfig.post('/api/auth/login' , {username , password})
       const data = await  res?.data;
-      console.log(res)
-      console.log(data)
 
       if(data?.error)
       {
         throw new Error("something went wrong")
       }
 
-      console.log(data)
       localStorage.setItem("authUser", JSON.stringify(data))
       setAuthUser(data);
     }catch (error)
     {
-      console.log("yes",error)
       localStorage.removeItem("authUser")
       if(error?.response?.status === 400)
       {

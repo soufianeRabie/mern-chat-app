@@ -36,5 +36,4 @@ app.get('*' , (req , res) => {
 
 server.listen(PORT , ()=>{
   connectToMongoDB();
-  console.log(`listening on ${PORT}`)
 })
